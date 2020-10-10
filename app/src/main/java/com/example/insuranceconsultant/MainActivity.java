@@ -34,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
         bLogin = findViewById(R.id.bLogin);
 
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Log.wtf("Shared", sharedPreferences.getString("Login", "Fault"));
+        if (sharedPreferences.getString("Login", "Fault").equals("LoginOk")){
+            Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
+            startActivity(intent);
+        }
 
         tvRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
                     Log.wtf("IF", "Ok");
                     if (password.equals("50615664")){
                         Toast.makeText(MainActivity.this, "Correct", Toast.LENGTH_SHORT).show();
+
+                        editor.putString("Login","LoginOk");
+                        editor.apply();
                     }
                     else Toast.makeText(MainActivity.this, "wrong password", Toast.LENGTH_SHORT).show();
                 }
