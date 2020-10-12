@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "962379885293",
+    "firebase_url": "https://insuranceconsultant-48f98.firebaseio.com",
+    "project_id": "insuranceconsultant-48f98",
+    "storage_bucket": "insuranceconsultant-48f98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962379885293:android:57566b2e6432003bb6fae4",
+        "android_client_info": {
+          "package_name": "com.example.insuranceconsultant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962379885293-3b198in79in1a6qdrci4kia7ch4lvr1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjH2oI9z-GbeSWzRjAK8dfLmgTv6UgrhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962379885293-3b198in79in1a6qdrci4kia7ch4lvr1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
