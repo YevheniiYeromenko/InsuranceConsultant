@@ -1,5 +1,6 @@
 package com.example.insuranceconsultant;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -13,6 +14,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText etLogin;
@@ -20,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvRegistration;
     private Button bLogin;
     private SharedPreferences sharedPreferences;
+
+    FirebaseFirestore db;
 
     public static final String APP_PREFERENCES = "com.example.insuranceconsultant";
 
@@ -33,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         tvRegistration = findViewById(R.id.tvRegistration);
         bLogin = findViewById(R.id.bLogin);
 
+        db = FirebaseFirestore.getInstance();
+
         sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
@@ -40,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         if (sharedPreferences.getString("Login", "Fault").equals("LoginOk")){
             Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
             startActivity(intent);
+            finish();
         }
 
         tvRegistration.setOnClickListener(new View.OnClickListener() {
@@ -53,22 +65,44 @@ public class MainActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String numConsultant = etLogin.getText().toString();
-                String password = etPassword.getText().toString();
-                Log.wtf("LOGIN", numConsultant);
-                Log.wtf("LOGIN", password);
+                final String numConsultant = etLogin.getText().toString();
+                final String password = etPassword.getText().toString();
 
-                if (numConsultant.equals("525654")){
-                    Log.wtf("IF", "Ok");
-                    if (password.equals("50615664")){
-                        Toast.makeText(MainActivity.this, "Correct", Toast.LENGTH_SHORT).show();
+                db.collection("Consultants")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()){
+                                    for (QueryDocumentSnapshot document :
+                                            task.getResult()) {
+                                        if (document.getId().toString().equals(numConsultant)){
+                                            if (document.getData().get("password").toString().equals(password)){
+                                                editor.putString("Login","LoginOk");
+                                                editor.apply();
+                                                startActivity(new Intent(getApplicationContext(), FirstActivity.class));
+                                                finish();
+                                            }
+                                            else Toast.makeText(getApplicationContext(), "Неверный пароль", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Консультант не зарегистрирован", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            }
+                        });
 
-                        editor.putString("Login","LoginOk");
-                        editor.apply();
-                    }
-                    else Toast.makeText(MainActivity.this, "wrong password", Toast.LENGTH_SHORT).show();
-                }
-                else Toast.makeText(MainActivity.this, "consultant is not exist", Toast.LENGTH_SHORT).show();
+//                if (numConsultant.equals("525654")){
+//                    Log.wtf("IF", "Ok");
+//                    if (password.equals("50615664")){
+//                        Toast.makeText(MainActivity.this, "Correct", Toast.LENGTH_SHORT).show();
+//
+//                        editor.putString("Login","LoginOk");
+//                        editor.apply();
+//                    }
+//                    else Toast.makeText(MainActivity.this, "wrong password", Toast.LENGTH_SHORT).show();
+//                }
+//                else Toast.makeText(MainActivity.this, "consultant is not exist", Toast.LENGTH_SHORT).show();
             }
         });
     }
