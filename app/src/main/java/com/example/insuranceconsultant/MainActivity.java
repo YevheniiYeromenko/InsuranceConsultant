@@ -92,17 +92,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
 
-//                if (numConsultant.equals("525654")){
-//                    Log.wtf("IF", "Ok");
-//                    if (password.equals("50615664")){
-//                        Toast.makeText(MainActivity.this, "Correct", Toast.LENGTH_SHORT).show();
-//
-//                        editor.putString("Login","LoginOk");
-//                        editor.apply();
-//                    }
-//                    else Toast.makeText(MainActivity.this, "wrong password", Toast.LENGTH_SHORT).show();
-//                }
-//                else Toast.makeText(MainActivity.this, "consultant is not exist", Toast.LENGTH_SHORT).show();
             }
         });
     }
