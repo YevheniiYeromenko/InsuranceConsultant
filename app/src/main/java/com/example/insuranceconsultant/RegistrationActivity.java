@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 //import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -31,18 +32,48 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        etLoginRegistration = findViewById(R.id.etLoginRegistration);
+        etPasswordRegistration = findViewById(R.id.etPasswordRegistration);
+        etPasswordRegistrationRepeat = findViewById(R.id.etPasswordRegistrationRepeat);
+        bRegistration = findViewById(R.id.bRegistration);
+
         db = FirebaseFirestore.getInstance();
 
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
+        final Map<String, Object> consultantInfo = new HashMap<>();
+//        user.put("first", "Ada");
+//        user.put("last", "Lovelace");
+//        user.put("born", 1815);
+
+        bRegistration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String login = etLoginRegistration.getText().toString();
+                String password = etPasswordRegistration.getText().toString();
+                String passwordRepeat = etPasswordRegistrationRepeat.getText().toString();
+
+                if (password.equals(passwordRepeat)){
+                    consultantInfo.put("password", password);
+                    db.collection("Consultants").document(login)
+                            .set(consultantInfo)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Repeat password is not correct!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
 
 // Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
+/*        db.collection("users")
+                .add(consultantInfo)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -54,6 +85,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Log.wtf("TAG", "Error adding document", e);
                     }
-                });
+                });*/
     }
 }
