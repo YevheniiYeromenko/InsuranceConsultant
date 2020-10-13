@@ -20,17 +20,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private EditText etLogin;
     private EditText etPassword;
     private TextView tvRegistration;
     private Button bLogin;
-    private SharedPreferences sharedPreferences;
+   // private SharedPreferences sharedPreferences;
 
-    FirebaseFirestore db;
+    //FirebaseFirestore db;
 
-    public static final String APP_PREFERENCES = "com.example.insuranceconsultant";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +42,15 @@ public class MainActivity extends AppCompatActivity {
         tvRegistration = findViewById(R.id.tvRegistration);
         bLogin = findViewById(R.id.bLogin);
 
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
 
-        sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        //sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = mySharedPreferences.edit();
 
-        Log.wtf("Shared", sharedPreferences.getString("Login", "Fault"));
-        if (sharedPreferences.getString("Login", "Fault").equals("LoginOk")){
-            Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        Log.wtf("Shared", mySharedPreferences.getString("Login", "Fault"));
+
+        //boolean chek = chekLogin();
+        chekLogin();
 
         tvRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                                             task.getResult()) {
                                         if (document.getId().toString().equals(numConsultant)){
                                             if (document.getData().get("password").toString().equals(password)){
-                                                editor.putString("Login","LoginOk");
+                                                editor.putString("Login",numConsultant);
                                                 editor.apply();
                                                 startActivity(new Intent(getApplicationContext(), FirstActivity.class));
                                                 finish();
@@ -94,5 +92,29 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void chekLogin() {
+        final String sharedLogin = mySharedPreferences.getString("Login", "Fault");
+        //final boolean[] chekLogin = {false};
+        db.collection("Consultants")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            for (QueryDocumentSnapshot document :
+                                    task.getResult()) {
+                                if (document.getId().equals(sharedLogin)){
+                                    Log.wtf("---CHEK---", "===OK===");
+                                    startActivity(new Intent(getApplicationContext(), FirstActivity.class));
+                                    finish();
+                                }
+                                else Log.wtf("---CHEK---", "===No OK===");
+                            }
+                        }
+                        else Log.wtf("FireStore", "FAULT RESULT");
+                    }
+                });
     }
 }

@@ -22,16 +22,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegistrationActivity extends AppCompatActivity {
+public class RegistrationActivity extends BaseActivity {
 
     private EditText etLoginRegistration;
     private EditText etPasswordRegistration;
     private EditText etPasswordRegistrationRepeat;
     private Button bRegistration;
     private FirebaseFirestore db;
-    private SharedPreferences sharedPreferences;
+    //private SharedPreferences sharedPreferences;
 
-    public static final String APP_PREFERENCES = "com.example.insuranceconsultant";
+    //public static final String APP_PREFERENCES = "com.example.insuranceconsultant";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +44,8 @@ public class RegistrationActivity extends AppCompatActivity {
         bRegistration = findViewById(R.id.bRegistration);
 
         db = FirebaseFirestore.getInstance();
-        sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        //mySharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = mySharedPreferences.edit();
 
         final Map<String, Object> consultantInfo = new HashMap<>();
 
