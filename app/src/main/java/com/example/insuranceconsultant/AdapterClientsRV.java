@@ -16,13 +16,15 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class AdapterClientsRV extends RecyclerView.Adapter<AdapterClientsRV.ClientInfoHolder> {
-    private List<Object> list;
+    private List<ClientInfo> list;
     private Context context;
 
-    public AdapterClientsRV(List<Object> list, Context context) {
+
+    public void setList(List<ClientInfo> list, Context context) {
         this.list = list;
         this.context = context;
     }
+
 
     @NonNull
     @Override
@@ -33,7 +35,7 @@ public class AdapterClientsRV extends RecyclerView.Adapter<AdapterClientsRV.Clie
 
     @Override
     public void onBindViewHolder(@NonNull ClientInfoHolder holder, int position) {
-        holder.tvClinetName.setText("Yeromenko" + position);
+        holder.tvClinetName.setText(list.get(position).getName());
         Glide.with(context)
                 .load("https://media.licdn.com/dms/image/C4E0BAQGvfZGd31Hw_Q/company-logo_200_200/0?e=2159024400&v=beta&t=zXUgvlTYqfO4cCIr5kggBOcypfhK4i4pbMtzq6dbeP8")
                 .into(holder.imLifeInsCompany);
