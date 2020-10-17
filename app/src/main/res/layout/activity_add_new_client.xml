@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".AddNewClientActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <EditText
+        android:id="@+id/etAddClientPolis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Polis"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etAddClientName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etAddClientBirth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Birth"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etAddClientTel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Telephone"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etAddClientAddr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/bAddNewClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="40dp"
+        android:text="Add"/>
+
+
+</LinearLayout>

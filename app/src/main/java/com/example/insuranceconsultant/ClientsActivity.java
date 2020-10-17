@@ -38,7 +38,8 @@ public class ClientsActivity extends AppCompatActivity {
         imAddNewClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(),)
+                Intent intent = new Intent(getApplicationContext(),AddNewClientActivity.class);
+                startActivity(intent);
             }
         });
 
