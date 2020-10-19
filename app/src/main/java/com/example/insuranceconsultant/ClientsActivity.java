@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,7 +54,17 @@ public class ClientsActivity extends BaseActivity {
         //adapterClientsRV.setList(clientInfoList, getApplicationContext());
 
 
-
+        ItemClickSupport.addTo(rvItemClients).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Intent intent = new Intent(getApplicationContext(), ClientDetailsActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable("CLIENT_INFO_B", clientInfoList.get(position));
+                intent.putExtra("CLIENT_INFO",clientInfoList.get(position));
+                Toast.makeText(getApplicationContext(), clientInfoList.get(position).getAddress(), Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+            }
+        });
 
         imAddNewClient.setOnClickListener(new View.OnClickListener() {
             @Override

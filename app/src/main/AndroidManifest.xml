@@ -11,7 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddNewClientActivity"></activity>
+        <activity android:name=".ClientDetailsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AddNewClientActivity" />
         <activity android:name=".ClientsActivity" />
         <activity android:name=".FirstActivity" />
         <activity android:name=".RegistrationActivity" />
