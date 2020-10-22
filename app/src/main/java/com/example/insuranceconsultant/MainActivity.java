@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -97,24 +99,52 @@ public class MainActivity extends BaseActivity {
     private void chekLogin() {
         final String sharedLogin = mySharedPreferences.getString("Login", "Fault");
         //final boolean[] chekLogin = {false};
-        db.collection("Consultants")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()){
-                            for (QueryDocumentSnapshot document :
-                                    task.getResult()) {
-                                if (document.getId().equals(sharedLogin)){
-                                    Log.wtf("---CHEK---", "===OK===");
-                                    startActivity(new Intent(getApplicationContext(), FirstActivity.class));
-                                    finish();
+        if (hasConnection(getApplicationContext())) {
+            db.collection("Consultants")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document :
+                                        task.getResult()) {
+                                    if (document.getId().equals(sharedLogin)) {
+                                        Log.wtf("---CHEK---", "===OK===");
+                                        startActivity(new Intent(getApplicationContext(), FirstActivity.class));
+                                        finish();
+                                    } else Log.wtf("---CHEK---", "===No OK===");
                                 }
-                                else Log.wtf("---CHEK---", "===No OK===");
-                            }
+                            } else Log.wtf("FireStore", "FAULT RESULT");
                         }
-                        else Log.wtf("FireStore", "FAULT RESULT");
-                    }
-                });
+                    });
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_SHORT).show();
+            etLogin.setVisibility(View.GONE);
+            etPassword.setVisibility(View.GONE);
+            tvRegistration.setVisibility(View.GONE);
+            bLogin.setVisibility(View.GONE);
+        }
+    }
+
+    public static boolean hasConnection(final Context context)
+    {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        wifiInfo = cm.getActiveNetworkInfo();
+        if (wifiInfo != null && wifiInfo.isConnected())
+        {
+            return true;
+        }
+        return false;
     }
 }
