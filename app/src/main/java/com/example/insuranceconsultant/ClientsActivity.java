@@ -2,11 +2,13 @@ package com.example.insuranceconsultant;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -66,6 +69,28 @@ public class ClientsActivity extends BaseActivity {
             }
         });
 
+        ItemClickSupport.addTo(rvItemClients).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ClientsActivity.this);
+                builder.setMessage("Удалить контакт?")
+                        .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteContact(clientInfoList.get(position).getNumPolis());
+                            }
+                        })
+                        .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
+                //deleteContact(clientInfoList.get(position).getNumPolis());
+                return false;
+            }
+        });
+
         imAddNewClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,5 +136,15 @@ public class ClientsActivity extends BaseActivity {
                         }
                     }
                 });*/
+    }
+    private void deleteContact(String document){
+        db.collection("Clients").document(document)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Контакт удалён", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

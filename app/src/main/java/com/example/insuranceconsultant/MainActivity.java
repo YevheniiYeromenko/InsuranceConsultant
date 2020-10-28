@@ -1,9 +1,12 @@
 package com.example.insuranceconsultant;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -28,10 +31,7 @@ public class MainActivity extends BaseActivity {
     private EditText etPassword;
     private TextView tvRegistration;
     private Button bLogin;
-   // private SharedPreferences sharedPreferences;
-
-    //FirebaseFirestore db;
-
+    private SwipeRefreshLayout srlMain;
 
 
     @Override
@@ -43,15 +43,17 @@ public class MainActivity extends BaseActivity {
         etPassword = findViewById(R.id.etPassword);
         tvRegistration = findViewById(R.id.tvRegistration);
         bLogin = findViewById(R.id.bLogin);
+        srlMain = findViewById(R.id.srlMain);
 
-        //db = FirebaseFirestore.getInstance();
+        srlMain.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                recreate();
+            }
+        });
+        srlMain.setRefreshing(false);
 
-        //sharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = mySharedPreferences.edit();
-
-        Log.wtf("Shared", mySharedPreferences.getString("Login", "Fault"));
-
-        //boolean chek = chekLogin();
         chekLogin();
 
         tvRegistration.setOnClickListener(new View.OnClickListener() {
@@ -73,17 +75,17 @@ public class MainActivity extends BaseActivity {
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()){
+                                if (task.isSuccessful()) {
                                     for (QueryDocumentSnapshot document :
                                             task.getResult()) {
-                                        if (document.getId().toString().equals(numConsultant)){
-                                            if (document.getData().get("password").toString().equals(password)){
-                                                editor.putString("Login",numConsultant);
+                                        if (document.getId().toString().equals(numConsultant)) {
+                                            if (document.getData().get("password").toString().equals(password)) {
+                                                editor.putString("Login", numConsultant);
                                                 editor.apply();
                                                 startActivity(new Intent(getApplicationContext(), FirstActivity.class));
                                                 finish();
-                                            }
-                                            else Toast.makeText(getApplicationContext(), "Неверный пароль", Toast.LENGTH_SHORT).show();
+                                            } else
+                                                Toast.makeText(getApplicationContext(), "Неверный пароль", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Консультант не зарегистрирован", Toast.LENGTH_SHORT).show();
                                         }
@@ -117,32 +119,36 @@ public class MainActivity extends BaseActivity {
                             } else Log.wtf("FireStore", "FAULT RESULT");
                         }
                     });
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_SHORT).show();
             etLogin.setVisibility(View.GONE);
             etPassword.setVisibility(View.GONE);
             tvRegistration.setVisibility(View.GONE);
             bLogin.setVisibility(View.GONE);
+//            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//            builder.setMessage("Нет подключения к интернету")
+//                    .setPositiveButton("Попробовать снова", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            recreate();
+//                        }
+//                    })
+//                    .show();
         }
     }
 
-    public static boolean hasConnection(final Context context)
-    {
-        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean hasConnection(final Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if (wifiInfo != null && wifiInfo.isConnected())
-        {
+        if (wifiInfo != null && wifiInfo.isConnected()) {
             return true;
         }
         wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        if (wifiInfo != null && wifiInfo.isConnected())
-        {
+        if (wifiInfo != null && wifiInfo.isConnected()) {
             return true;
         }
         wifiInfo = cm.getActiveNetworkInfo();
-        if (wifiInfo != null && wifiInfo.isConnected())
-        {
+        if (wifiInfo != null && wifiInfo.isConnected()) {
             return true;
         }
         return false;
