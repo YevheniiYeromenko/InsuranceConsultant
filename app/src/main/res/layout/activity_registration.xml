@@ -5,51 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="8dp"
     tools:context=".RegistrationActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
         android:layout_gravity="center_horizontal"
-        android:text="Регистрация"/>
+        android:text="Регистрация"
+        android:textSize="32sp" />
 
     <EditText
         android:id="@+id/etLoginRegistration"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textSize="48dp"
+        android:ems="5"
         android:hint="Number"
         android:inputType="number"
-        android:ems="5"/>
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etNameRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="5"
+        android:hint="Name"
+        android:inputType="text"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etScoreRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="5"
+        android:hint="Score"
+        android:inputType="number"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etTrainerNumberRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="5"
+        android:hint="Trainer Number"
+        android:inputType="text"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etLevelRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="5"
+        android:hint="Level"
+        android:inputType="text"
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/etPasswordRegistration"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="5"
-        android:inputType="textPassword"
-        android:hint="password"
         android:layout_gravity="center_horizontal"
-        android:textSize="48dp"/>
+        android:ems="5"
+        android:hint="password"
+        android:inputType="textPassword"
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/etPasswordRegistrationRepeat"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="5"
-        android:hint="password"
-        android:inputType="textPassword"
         android:layout_gravity="center_horizontal"
-        android:textSize="48dp"/>
+        android:ems="5"
+        android:hint="pereat password"
+        android:inputType="textPassword"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/bRegistration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="32dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
         android:text="Registration"
-        android:layout_gravity="center_horizontal"/>
+        android:textSize="32sp" />
 
 </LinearLayout>

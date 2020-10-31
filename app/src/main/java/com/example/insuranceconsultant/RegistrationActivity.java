@@ -25,13 +25,15 @@ import java.util.Map;
 public class RegistrationActivity extends BaseActivity {
 
     private EditText etLoginRegistration;
+    private EditText etNameRegistration;
+    private EditText etScoreRegistrationRepeat;
+    private EditText etTrainerNameRegistration;
+    private EditText etLevelRegistration;
     private EditText etPasswordRegistration;
     private EditText etPasswordRegistrationRepeat;
     private Button bRegistration;
-    private FirebaseFirestore db;
-    //private SharedPreferences sharedPreferences;
+    private ConsultantInfo consultant;
 
-    //public static final String APP_PREFERENCES = "com.example.insuranceconsultant";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +41,17 @@ public class RegistrationActivity extends BaseActivity {
         setContentView(R.layout.activity_registration);
 
         etLoginRegistration = findViewById(R.id.etLoginRegistration);
+        etNameRegistration = findViewById(R.id.etNameRegistration);
+        etScoreRegistrationRepeat = findViewById(R.id.etScoreRegistration);
+        etTrainerNameRegistration = findViewById(R.id.etTrainerNumberRegistration);
+        etLevelRegistration = findViewById(R.id.etLevelRegistration);
         etPasswordRegistration = findViewById(R.id.etPasswordRegistration);
         etPasswordRegistrationRepeat = findViewById(R.id.etPasswordRegistrationRepeat);
         bRegistration = findViewById(R.id.bRegistration);
 
-        db = FirebaseFirestore.getInstance();
-        //mySharedPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = mySharedPreferences.edit();
 
-        final Map<String, Object> consultantInfo = new HashMap<>();
+        final SharedPreferences.Editor editor = mySharedPreferences.edit();
+        final Map<String, Object> consultantInfoMap = new HashMap<>();
 
         bRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,11 +59,22 @@ public class RegistrationActivity extends BaseActivity {
                 String login = etLoginRegistration.getText().toString();
                 String password = etPasswordRegistration.getText().toString();
                 String passwordRepeat = etPasswordRegistrationRepeat.getText().toString();
+                String name = etNameRegistration.getText().toString();
+                String score = etScoreRegistrationRepeat.getText().toString();
+                String trainerNumber = etTrainerNameRegistration.getText().toString();
+                Integer level = Integer.parseInt(etLevelRegistration.getText().toString());
 
                 if (password.equals(passwordRepeat)){
-                    consultantInfo.put("password", password);
-                    db.collection("Consultants").document(login)
-                            .set(consultantInfo)
+                    consultant = new ConsultantInfo(login, name, score, trainerNumber, password, level);
+                    consultantInfoMap.put("number", consultant.getNumber());
+                    consultantInfoMap.put("name", consultant.getName());
+                    consultantInfoMap.put("score", consultant.getScore());
+                    consultantInfoMap.put("trainerNumber", consultant.getTrainerNumber());
+                    consultantInfoMap.put("level", consultant.getLevel());
+                    consultantInfoMap.put("password", consultant.getPassword());
+
+                    db.collection("Consultants").document(consultant.getNumber())
+                            .set(consultantInfoMap)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {

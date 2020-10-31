@@ -49,9 +49,10 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 recreate();
+                srlMain.setRefreshing(false);
             }
         });
-        srlMain.setRefreshing(false);
+
 
         final SharedPreferences.Editor editor = mySharedPreferences.edit();
         chekLogin();
@@ -91,6 +92,8 @@ public class MainActivity extends BaseActivity {
                                         }
                                     }
                                 }
+                                else
+                                    Toast.makeText(getApplicationContext(), "Консультант не зарегистрирован", Toast.LENGTH_SHORT).show();
                             }
                         });
 

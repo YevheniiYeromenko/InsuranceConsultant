@@ -4,17 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="24dp"
+    android:orientation="vertical"
     tools:context=".FirstActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/bLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/common_google_signin_btn_text_dark_pressed"
+            android:text="Logout"
+            android:textAllCaps="false" />
+    </RelativeLayout>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvClients"
         android:layout_width="320dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:cardCornerRadius="16dp">
 
         <LinearLayout
@@ -88,33 +106,33 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                app:cardCornerRadius="12dp"
-                android:layout_alignParentLeft="true">
+                android:layout_alignParentLeft="true"
+                app:cardCornerRadius="12dp">
 
                 <ImageView
                     android:id="@+id/imMetlife"
-                    android:layout_margin="4dp"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_launcher_background"
-                    android:scaleType="centerCrop"/>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="4dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="120dp"
                 android:layout_height="120dp"
-                app:cardCornerRadius="12dp"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                app:cardCornerRadius="12dp">
 
                 <ImageView
                     android:id="@+id/imStarlife"
-                    android:layout_margin="4dp"
-                    android:layout_gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/account"
-                    android:scaleType="centerCrop"/>
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="4dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/account" />
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
