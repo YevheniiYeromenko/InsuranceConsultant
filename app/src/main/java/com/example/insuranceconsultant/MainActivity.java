@@ -77,19 +77,24 @@ public class MainActivity extends BaseActivity {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
+                                    boolean countMyUsers = false;
                                     for (QueryDocumentSnapshot document :
                                             task.getResult()) {
                                         if (document.getId().toString().equals(numConsultant)) {
+                                            countMyUsers = true;
                                             if (document.getData().get("password").toString().equals(password)) {
                                                 editor.putString("Login", numConsultant);
                                                 editor.apply();
-                                                startActivity(new Intent(getApplicationContext(), FirstActivity.class));
+                                                Log.wtf(MainActivity.class.getName(), "Логин есть");
+                                                startActivity(new Intent(MainActivity.this, FirstActivity.class));
                                                 finish();
-                                            } else
-                                                Toast.makeText(getApplicationContext(), "Неверный пароль", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "Консультант не зарегистрирован", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(MainActivity.this, "Неверный пароль", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
+                                    }
+                                    if (!countMyUsers){
+                                        Toast.makeText(MainActivity.this, "Консультант не зарегистрирован", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 else

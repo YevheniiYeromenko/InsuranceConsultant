@@ -84,7 +84,9 @@ public class RegistrationActivity extends BaseActivity {
 
                     editor.putString("Login", login);
                     editor.apply();
-                    startActivity(new Intent(getApplicationContext(), FirstActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), FirstActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                     finish();
                 }
                 else {
