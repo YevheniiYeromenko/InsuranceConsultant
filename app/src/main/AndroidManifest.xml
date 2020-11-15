@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TeamActivity"></activity>
+        <activity android:name=".ClientChangeActivity"></activity>
+        <activity android:name=".TeamActivity" />
         <activity android:name=".ClientDetailsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />

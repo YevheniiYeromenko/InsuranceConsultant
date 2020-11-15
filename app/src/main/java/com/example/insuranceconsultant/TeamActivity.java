@@ -25,7 +25,6 @@ import java.util.List;
 public class TeamActivity extends BaseActivity {
 
     private RecyclerView rvItemConlultants;
-    private ImageView imAddNewConcultant;
     private AdapterConsultantsRV adapterConsultantsRV;
     private List<ConsultantInfo> consultantInfoList = new ArrayList<>();
 
@@ -38,7 +37,6 @@ public class TeamActivity extends BaseActivity {
 
 
         rvItemConlultants = findViewById(R.id.rvItemConsultants);
-        imAddNewConcultant = findViewById(R.id.imAddNewConsultant);
 
         adapterConsultantsRV = new AdapterConsultantsRV();
         rvItemConlultants.setLayoutManager(new LinearLayoutManager(this));

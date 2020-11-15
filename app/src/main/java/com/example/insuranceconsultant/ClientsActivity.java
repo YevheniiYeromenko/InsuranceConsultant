@@ -73,16 +73,24 @@ public class ClientsActivity extends BaseActivity {
             @Override
             public boolean onItemLongClicked(RecyclerView recyclerView, final int position, View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(ClientsActivity.this);
-                builder.setMessage("Удалить контакт?")
-                        .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                builder.setMessage("Видалити контакт?")
+                        .setPositiveButton("Так", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 deleteContact(clientInfoList.get(position).getNumPolis());
                             }
                         })
-                        .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Ні", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setNeutralButton("Редагувати", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(getApplicationContext(), ClientChangeActivity.class);
+                                intent.putExtra("CLIENT", clientInfoList.get(position));
+                                startActivity(intent);
                             }
                         })
                         .show();
