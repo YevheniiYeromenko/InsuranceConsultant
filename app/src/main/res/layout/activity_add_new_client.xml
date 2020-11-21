@@ -5,12 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AddNewClientActivity">
+    tools:context=".AddNewClientActivity"
+    android:layout_margin="8dp">
 
     <EditText
         android:id="@+id/etAddClientPolis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="Polis"
         android:textSize="24sp" />
 
@@ -18,6 +20,7 @@
         android:id="@+id/etAddClientName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="Name"
         android:textSize="24sp" />
 
@@ -25,6 +28,7 @@
         android:id="@+id/etAddClientBirth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="Birth"
         android:textSize="24sp" />
 
@@ -32,6 +36,7 @@
         android:id="@+id/etAddClientTel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="Telephone"
         android:textSize="24sp" />
 
@@ -39,16 +44,27 @@
         android:id="@+id/etAddClientAddr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:hint="Address"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/bAddNewClient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="128dp"
+        android:layout_height="56dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="40dp"
-        android:text="Add"/>
+        app:cardCornerRadius="64dp">
+
+        <TextView
+            android:id="@+id/bAddNewClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/cardview_light_background"
+            android:layout_marginTop="8dp"
+            android:text="Додати"
+            android:textSize="24sp"/>
+
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>
