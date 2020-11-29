@@ -98,7 +98,8 @@ public class MainActivity extends BaseActivity {
                                     }
                                 }
                                 else
-                                    Toast.makeText(getApplicationContext(), "Консультант не зарегистрирован", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getApplicationContext(), "Консультант не зарегистрирован", Toast.LENGTH_SHORT).show();
+                                    Log.wtf("Login: ", "База консультантов пустая");
                             }
                         });
 

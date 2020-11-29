@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +23,7 @@ public class AddNewClientActivity extends BaseActivity {
     private EditText etAddClientBirth;
     private EditText etAddClientTel;
     private EditText etAddClientAddr;
-    private Button bAddNewClient;
+    private TextView bAddNewClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class AddNewClientActivity extends BaseActivity {
         etAddClientAddr = findViewById(R.id.etAddClientAddr);
         bAddNewClient = findViewById(R.id.bAddNewClient);
 
-        final String login = mySharedPreferences.getString("Login", "FAULT");
+        //final String login = mySharedPreferences.getString("Login", "FAULT");
 
         bAddNewClient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +54,7 @@ public class AddNewClientActivity extends BaseActivity {
                 map.put("dateBirth", clientBirth);
                 map.put("telephoneNum", clientTel);
                 map.put("address", clientAddr);
-                map.put("consultantNum", login);
+                map.put("consultantNum", mySharedPreferences.getString("Login", "FAULT"));
 
                 db.collection("Clients").document(clientPolis)
                         .set(map)

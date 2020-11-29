@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ClientDetailsActivity extends AppCompatActivity {
@@ -16,6 +17,8 @@ public class ClientDetailsActivity extends AppCompatActivity {
     private TextView tvClDetailBirth;
     private TextView tvClDetailTel;
     private TextView tvClDetailAddr;
+    private ImageView imSendMessage;
+    private ImageView imPhoneCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,9 @@ public class ClientDetailsActivity extends AppCompatActivity {
         tvClDetailTel = findViewById(R.id.tvClDetailTel);
         tvClDetailAddr = findViewById(R.id.tvClDetailAddr);
 
+        imSendMessage = findViewById(R.id.imSendMessage);
+        imPhoneCall = findViewById(R.id.imPhoneCall);
+
 
         final ClientInfo client;
         client = getIntent().getParcelableExtra("CLIENT_INFO");
@@ -38,18 +44,21 @@ public class ClientDetailsActivity extends AppCompatActivity {
         tvClDetailTel.setText(client.getTelephoneNum());
         tvClDetailAddr.setText(client.getAddress());
 
-        tvClDetailTel.setOnLongClickListener(new View.OnLongClickListener() {
+        imPhoneCall.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
                 dialPhoneNumber(client.getTelephoneNum());
-                return false;
             }
         });
 
-        tvClDetailPolis.setOnClickListener(new View.OnClickListener() {
+        imSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessage("MY MESSAGE!!!");
+                sendMessage(client.getNumPolis() + "\n" +
+                            client.getName() + "\n" +
+                            client.getDateBirth() + "\n" +
+                            client.getTelephoneNum() + "\n" +
+                            client.getAddress() + "\n");
             }
         });
 

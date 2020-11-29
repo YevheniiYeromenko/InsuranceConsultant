@@ -20,30 +20,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="120dp"
-                android:text="Вход в кабинет"
-                android:textSize="24dp" />
+                android:layout_marginTop="200dp"
+                android:text="Вхід до кабінету"
+                android:textSize="24sp" />
 
             <EditText
                 android:id="@+id/etLogin"
-                android:layout_width="wrap_content"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:ems="10"
                 android:hint="Номер консультанта"
                 android:inputType="number" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/etPassword"
-                    android:layout_width="wrap_content"
+                    android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="101dp"
                     android:layout_marginTop="8dp"
                     android:ems="10"
                     android:hint="Пароль"
@@ -51,11 +47,13 @@
 
                 <Button
                     android:id="@+id/bLogin"
-                    android:layout_width="40dp"
+                    android:layout_width="240dp"
                     android:layout_height="40dp"
-                    android:background="@color/colorAccent" />
-
-            </LinearLayout>
+                    android:layout_marginTop="32dp"
+                    android:text="Логін"
+                    android:textColor="@color/common_google_signin_btn_text_light_focused"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/cardview_light_background" />
 
 
             <TextView
@@ -64,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:text="Регистрация" />
+                android:text="Реєстрація" />
 
         </LinearLayout>
 

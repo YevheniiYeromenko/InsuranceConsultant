@@ -122,10 +122,19 @@ public class ClientsActivity extends BaseActivity {
                     clientInfoList.clear();
                     for (DocumentSnapshot document:
                             value.getDocuments()) {
+                        //Log.wtf("=======", document.get("consultantNum").toString());
+                        //ClientInfo.class.getFields();
+                        if (document.get("consultantNum").toString().equalsIgnoreCase(mySharedPreferences.getString("Login", "FAULT")))
                         clientInfoList.add(document.toObject(ClientInfo.class));
                     }
-                    rvItemClients.setAdapter(adapterClientsRV);
-                    adapterClientsRV.setList(clientInfoList, getApplicationContext());
+                    //Log.wtf("=====", clientInfoList.get(0).getConsultantNum());
+                    if (clientInfoList.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "У менеджера ще немає клієнтів", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        rvItemClients.setAdapter(adapterClientsRV);
+                        adapterClientsRV.setList(clientInfoList, getApplicationContext());
+                    }
                 }
             }
         });

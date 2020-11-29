@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,7 +24,7 @@ public class ClientChangeActivity extends BaseActivity {
     private EditText etChangeClientBirth;
     private EditText etChangeClientTel;
     private EditText etChangeClientAddr;
-    private Button bChangeClient;
+    private TextView bChangeClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,7 @@ public class ClientChangeActivity extends BaseActivity {
                 map.put("dateBirth", clientBirth);
                 map.put("telephoneNum", clientTel);
                 map.put("address", clientAddr);
+                map.put("consultantNum", mySharedPreferences.getString("Login", "FAULT"));
 
                 db.collection("Clients").document(client.getNumPolis())
                         .set(map)
